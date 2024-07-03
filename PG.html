@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de PG e Fibonacci</title>
+    <style>
+        body {
+            background-image: linear-gradient(45deg,black, crimson);
+            height: 100vh;
+            color: #fff;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        input[type="number"] {
+            width: 80px;
+        }
+        button {
+            margin: 10px;
+            padding: 8px 16px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #resultado {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Calculadora de PG e Fibonacci</h2>
+    
+    <label for="opcao">Escolha a operação:</label>
+    <select id="opcao">
+        <option value="pg">Progressão Geométrica (PG)</option>
+        <option value="fibonacci">Sequência de Fibonacci</option>
+    </select><br><br>
+
+    <div id="pgInputs">
+        <label for="primeiro-termo">Primeiro Termo (a):</label>
+        <input type="number" id="primeiro-termo"><br><br>
+
+        <label for="razao">Razão (q):</label>
+        <input type="number" id="razao"><br><br>
+
+        <label for="quantidade">Quantidade de Termos:</label>
+        <input type="number" id="quantidade"><br><br>
+    </div>
+
+    <button onclick="calcular()">Calcular</button><br><br>
+
+    <div id="resultado"></div>
+
+    <script>
+    function calcular() {
+    let opcao = document.getElementById("opcao").value;
+
+    if (opcao === "pg") {
+        calcularPG();
+    } else if (opcao === "fibonacci") {
+        calcularFibonacci();
+    }
+}
+
+    function calcularPG() {
+    let primeiroTermo = parseFloat(document.getElementById("primeiro-termo").value);
+    let razao = parseFloat(document.getElementById("razao").value);
+    let quantidade = parseInt(document.getElementById("quantidade").value);
+
+    if (isNaN(primeiroTermo) || isNaN(razao) || isNaN(quantidade)) {
+        alert("Por favor, preencha todos os campos corretamente.");
+        return;
+    }
+
+    let termos = [];
+    let termoAtual = primeiroTermo;
+
+    for (let i = 0; i < quantidade; i++) {
+        termos.push(termoAtual);
+        termoAtual *= razao;
+    }
+
+    let resultado = "Termos da PG: " + termos.join(", ");
+    document.getElementById("resultado").textContent = resultado;
+}
+
+    function calcularFibonacci() {
+    let quantidade = parseInt(document.getElementById("quantidade").value);
+
+    if (isNaN(quantidade) || quantidade <= 0) {
+        alert("Por favor, insira um número inteiro positivo.");
+        return;
+    }
+
+    let fibonacci = [0, 1];
+
+    for (let i = 2; i < quantidade; i++) {
+        fibonacci[i] = fibonacci[i - 1] + fibonacci[i - 2];
+    }
+
+    let resultado = "Sequência de Fibonacci: " + fibonacci.join(", ");
+    document.getElementById("resultado").textContent = resultado;
+}
+
+    </script>
+</body>
+</html>
